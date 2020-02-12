@@ -1,9 +1,20 @@
-const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLList,
+  GraphQLID
+} = require("graphql");
 const { Book, Author } = require("../database/models/index");
 
 const AuthorSchema = new GraphQLObjectType({
   name: "Author",
   fields: () => ({
+    id: {
+      type: GraphQLID,
+      resolve(author) {
+        return author.id;
+      }
+    },
     name: {
       type: GraphQLString,
       resolve(author) {
