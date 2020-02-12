@@ -1,7 +1,4 @@
-var {
-  graphql,
-  buildSchema
-} = require("../2. express-more-complex-example/node_modules/graphql");
+var { graphql, buildSchema } = require("graphql");
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
