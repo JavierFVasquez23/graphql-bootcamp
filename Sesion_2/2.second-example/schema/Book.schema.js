@@ -11,10 +11,10 @@ const BookSchema = new GraphQLObjectType({
         return book.title;
       }
     },
-    con: {
+    content: {
       type: GraphQLString,
       resolve(book) {
-        return book.title;
+        return book.content;
       }
     },
     author: {
