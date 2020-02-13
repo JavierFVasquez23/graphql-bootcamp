@@ -9,8 +9,10 @@ const {
 } = require("graphql");
 const { AuthorSchema } = require("./Author.schema");
 const { Author, Book } = require("../database/models/index");
-const { PubSub, withFilter } = require("graphql-subscriptions");
+const { PubSub } = require("apollo-server");
 const pubsub = new PubSub();
+
+const BOOK_ADDED = "BOOK_ADDED";
 
 const BookSchema = new GraphQLObjectType({
   name: "Book",
@@ -77,7 +79,7 @@ const addBooks = {
   },
   resolve: async (_, { input }) => {
     const book = await Book.create({ ...input });
-    pubsub.publish("bookAdded", {
+    pubsub.publish(BOOK_ADDED, {
       bookAdded: book
     });
     return book;
@@ -85,13 +87,8 @@ const addBooks = {
 };
 const subscribtionBooks = {
   type: BookSchema,
-  resolve: withFilter(
-    () => pubsub.asyncIterator("bookAdded"),
-    (payload, variables) => {
-      console.log(payload, variables);
-      return payload;
-    }
-  )
+  subscribe: () => pubsub.asyncIterator([BOOK_ADDED]),
+  resolve: ({ bookAdded: { dataValues } }) => dataValues
 };
 
 module.exports = {
