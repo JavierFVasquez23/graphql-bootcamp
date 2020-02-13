@@ -88,7 +88,16 @@ const addBooks = {
 const subscribtionBooks = {
   type: BookSchema,
   subscribe: () => pubsub.asyncIterator([BOOK_ADDED]),
-  resolve: ({ bookAdded: { dataValues } }) => dataValues
+  resolve: value => {
+    if (value) {
+      const {
+        bookAdded: { dataValues }
+      } = value;
+      return dataValues;
+    } else {
+      return "Cargando..";
+    }
+  }
 };
 
 module.exports = {
