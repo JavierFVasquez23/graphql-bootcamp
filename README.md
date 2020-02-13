@@ -4,14 +4,10 @@
 
 ### First Example
 
-How to run?
-
     $ yarn
     $ yarn start
 
 ### Second Example
-
-How to run?
 
     $ yarn
     $ yarn start
@@ -20,14 +16,10 @@ How to run?
 
 ### First Example
 
-How to run?
-
     $ yarn
     $ yarn start
 
 ### Second Example
-
-How to run?
 
     $ yarn
 
